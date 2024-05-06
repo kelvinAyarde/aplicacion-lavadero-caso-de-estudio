@@ -1,0 +1,146 @@
+{% extends 'venta/venta_menu.html' %}
+
+{% block contenido_2 %}
+<h1>Formulario Registro de Venta Suscripcion</h1>
+<form action="" method="post">
+    <div class="cont_partes">
+        <div class="part1">
+            <label for="">buscar cliente por:</label>
+            <button type="button" onclick="busq_empresa()">Empresa</button>
+            <button type="button" onclick="busq_persona()">Persona</button>
+            <div id="resultado"></div>
+            <div id="resultado2"></div>
+
+            <div id="resultado3"></div>
+        </div>
+        <div class="part2">
+
+            <label for="observacion">Observación:</label>
+            <textarea id="observacion" name="observacion" rows="4" cols="50" required></textarea><br>
+
+            {{ select_servicio | safe }} <br>
+        </div>
+    </div>
+
+    <input type="submit" value="Guardar">
+</form>
+
+<style>
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
+        margin-top: 30px;
+        border-radius: 1.2rem;
+        width: 90%;
+        padding: 20px;
+        box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .cont_partes {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin-top: 30px;
+        width: 100%;
+    }
+</style>
+<script>
+    var $resultado = $("#resultado");
+    function busq_empresa() {
+        $($resultado).html(`
+            <input type="text" id="nit_o_nro_ci" placeholder="nit" required><br>
+            <button type="button" onclick="ajax_busq_empresa()">buscar</button>
+        `);
+        $("#resultado2").empty();
+    }
+    function busq_persona() {
+        $($resultado).html(`
+            <input type="text" id="nit_o_nro_ci" placeholder="nro_ci" required><br>
+            <button type="button" onclick="ajax_busq_persona()">buscar</button>
+        `);
+        $("#resultado2").empty();
+    }
+
+    function ajax_busq_empresa() {
+        var $input = $("#nit_o_nro_ci").val();
+        var check_name = 'id_cliente'
+        var $tabla = $("#resultado2")
+        $.ajax({
+            url: "/buscar_ajax/busq_clienteEmpresa",
+            method: "POST",
+            data: { busqueda: $input },
+            success: function (response) {
+                var columnas = response[0];
+                var datos = response.slice(1);
+                generarTablaHTML($tabla, columnas, datos, check_name)
+
+            }
+        });
+    }
+    function ajax_busq_persona() {
+        var $input = $("#nit_o_nro_ci").val();
+        var check_name = 'id_cliente'
+        var $tabla = $("#resultado2")
+        $.ajax({
+            url: "/buscar_ajax/busq_clientePersona",
+            method: "POST",
+            data: { busqueda: $input },
+            success: function (response) {
+                var columnas = response[0];
+                var datos = response.slice(1);
+                generarTablaHTML($tabla, columnas, datos, check_name)
+            }
+        });
+    }
+
+    $('#resultado2').on('change', 'input[type="checkbox"][name="id_cliente"]', function () {
+        if (this.checked) {
+            var $input = $('input[name="id_cliente"]:checked').val();
+            var check_name = 'id_vehiculo'
+            var $tabla = $("#resultado3")
+            $.ajax({
+                url: "/buscar_ajax/busq_vehiculoCliente",
+                method: "POST",
+                data: { busqueda: $input },
+                success: function (response) {
+                    var columnas = response[0];
+                    var datos = response.slice(1);
+                    generarTablaHTML($tabla, columnas, datos, check_name)
+                }
+            });
+        }
+    });
+
+    $('#resultado3').on('change', 'input[type="checkbox"][name="id_vehiculo"]', function () {
+        if (this.checked) {
+            var $input = $(this).val();
+            console.log($input);
+
+            if ($('#resultado3').find('label[for="precio_tipo_vehiculo"]').length === 0) {
+                $('#resultado3').append('<label for="precio_tipo_vehiculo">precio tipo vehiculo:</label>');
+            }
+            if ($('#resultado3').find('select[name="precio_tipo_vehiculo"]').length === 0) {
+                $('#resultado3').append('<select name="precio_tipo_vehiculo"></select>');
+            }
+            $.ajax({
+                url: "/buscar_ajax/busq_precioTipoVehiculo",
+                method: "POST",
+                data: { busqueda: $input },
+                success: function (data) {
+                    var select_html = generarSelect(data, 'precio_tipo_vehiculo');
+                    $('#resultado3').find('select[name="precio_tipo_vehiculo"]').html(select_html);
+                }
+            });
+        }
+    });
+
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="contenido-login">
+        <div class="login-logo">
+            <img src="{{ url_for('static', filename='imgs/logo_lavadero.jpg') }}" alt="">
+        </div>
+        <div class="login-form">
+            <div id="error-message"></div>
+            <form method="POST">
+                <h1>Bienvenido</h1>
+                <input type="text" id="nombre" name="nombre" placeholder="nombre usuario" required><br>
+                <input type="password" id="password" name="password" placeholder="password" required><br>
+                <input type="submit" value="Ingresar">
+            </form>
+        </div>
+
+    </div>
+    <script>
+        if ("{{ mensaje }}") {
+            setTimeout(function () { alert('{{ mensaje }}'); }, 100); //tiene setTimeout para que se pueda cargar la pagina
+        }
+    </script>
+</body>
+
+</html>

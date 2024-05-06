@@ -1,0 +1,67 @@
+{% extends 'caja/caja_menu.html' %}
+
+{% block contenido_2 %}
+<form action="" method="post">
+    <h1>Apertura y Cierre de Caja</h1>
+    <label for="">seleccione la caja a aperturar:</label>
+    {{ select_cajas | safe }}
+    <label for="">ingrese el monto de apertura:</label>
+    <input type="number" name="monto_apertura">
+    <input type="submit" value="Guardar">
+</form>
+
+<table>
+    <thead>
+        <tr>
+            {% for dat in tabla_cajas_aperturadas[0] %}
+            <th>{{ dat }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for dat in tabla_cajas_aperturadas[1] %}
+        <tr>
+            {% for val in dat.values() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function cargarSelect() {
+        var selectServicios = $('#selectServicios');
+        $.ajax({
+            url: '/buscar_ajax/obtener_tipoServicio',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if ('sin_datos' in data) {
+                    selectServicios.append($('<option>', {
+                        value: '',
+                        text: data.sin_datos
+                    }));
+                } else {
+                    $.each(data, function (index, servicio) {
+                        selectServicios.append($('<option>', {
+                            value: servicio.id,
+                            text: servicio.descripcion
+                        }));
+                    });
+                }
+            }
+        });
+    }
+
+    function obtenerServRegistrados() {
+        var $tabla = $("#resultados_1");
+        var urlBusqueda = "/buscar_ajax/obtener_servicioReg";
+        buscarTabla($tabla, urlBusqueda);
+    }
+    $(document).ready(function () {
+        cargarSelect();
+        obtenerServRegistrados();
+    });
+</script>
+{% endblock %}

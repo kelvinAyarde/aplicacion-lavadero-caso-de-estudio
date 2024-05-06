@@ -1,0 +1,119 @@
+
+.contenedor_modulo nav {
+    display: flex;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    background-color: #437eb7; /* Color de fondo de la barra de navegación */
+}
+ul.navbar_inter {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #437eb7; /* Color de fondo de la barra de navegación */
+    overflow: hidden;
+}
+
+li.nav_inter-item {
+    float: left; /* Los elementos de la barra de navegación se colocan en línea */
+}
+
+li.nav_inter-item a {
+    display: block;
+    color: white; /* Color del texto de los enlaces */
+    text-align: center;
+    padding: 14px 16px; /* Espacio alrededor del texto del enlace */
+    text-decoration: none; /* Quita la subrayado de los enlaces */
+}
+
+li.nav_inter-item a:hover {
+    background-color: #6e9fcd; /* Color de fondo cuando se pasa el mouse sobre el enlace */
+    color:aliceblue; /* Cambia el color del texto cuando se pasa el mouse sobre el enlace */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #437eb7;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.contenedor_modulo_interno h1, h2{
+    text-align: center;
+    background-color: aliceblue;
+    padding: 10px;
+}
+.contenedor_modulo_interno button{
+    background-color: #5b91c2;
+    color: aliceblue;
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 7px;
+}
+.contenedor_modulo_interno table thead{
+    background-color: #0195fb;
+    color: aliceblue;
+}
+.contenedor_modulo_interno table tbody{
+    background-color: #202528;
+    color: aliceblue;
+}
+/*---------------------*/
+.tabla-contenedor th, table th,
+    .tabla-contenedor td, table td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 7px;
+    }
+
+    .tabla-contenedor {
+        max-height: 200px;
+        overflow-y:auto;
+        width: 100%;
+    }
+
+    .sec_part1{
+        display: flex;
+        height: 250px;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .sec_part1 .sec_izq, .sec_part1 .sec_der{
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sec_part3{
+        display: flex;
+        justify-content: center;
+    }
+    .contenedor_modulo_interno input[type="text"], .contenedor_modulo_interno input[type="number"],
+    .contenedor_modulo_interno select  {
+        border: 1px solid #ccc;
+        padding: 4px;
+        border-radius: 5px;
+    }
+    
+    .contenedor_modulo_interno form{
+        
+        margin-bottom: 20px;
+    }
+    .contenedor_modulo_interno form input[type="submit"] {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        color: aliceblue;
+        background-color: green;
+        align-items: center;
+    }
+/*tabla-contenedor*/
+.sec_centrar, .sec_part2 .tabla-contenedor{
+    display: flex;
+    justify-content: center;
+}

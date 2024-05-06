@@ -1,0 +1,90 @@
+{% extends 'cliente/cliente_menu.html' %}
+
+{% block contenido_2 %}
+<h1>Formulario Registro de cliente</h1>
+<form action="" method="post">
+    <label for="">seleccione tipo de cliente a crear:</label>
+    <button type="button" onclick="frm_Empresa()">Empresa</button>
+    <button type="button" onclick="frm_Persona()">Persona</button>
+
+    <div class="contenedor-form">
+        <div class="con-1">
+            <div id="cargar_form"></div>
+
+            <input id="btn_save" type="submit" value="Guardar">
+        </div>
+    </div>
+</form>
+
+<script>
+    function frm_Persona() {
+        var formulario = `
+            <label for="primer_nombre">Primer Nombre:</label>
+            <input type="text" name="primer_nombre" required>
+            <label for="segundo_nombre">Segundo Nombre:</label>
+            <input type="text" name="segundo_nombre">
+            <label for="primer_apellido">Primer Apellido:</label>
+            <input type="text" name="primer_apellido" required>
+            <label for="segundo_apellido">Segundo Apellido:</label>
+            <input type="text" name="segundo_apellido">
+            <label for="nro_ci">Número de CI:</label>
+            <input type="text" name="nro_ci" required>
+            <label for="telefono">Teléfono:</label>
+            <input type="text" name="telefono">
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+    `;
+        $('#cargar_form').html(formulario);
+    }
+
+    function frm_Empresa() {
+        var formulario = `
+            <label for="nit">NIT:</label>
+            <input type="text" id="nit" name="nit" required>
+            <label for="razon_social">Razón Social:</label>
+            <input type="text" id="razon_social" name="razon_social" required>
+    `;
+        $('#cargar_form').html(formulario);
+    }
+</script>
+<style>
+    #btn_save {
+        margin-top: 20px;
+    }
+
+    .contenedor-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .con-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        border-radius: 1.2rem;
+        width: 420px;
+        padding: 20px;
+        box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    #cargar_form {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        /* Ancho de las columnas */
+        gap: 10px;
+        /* Espacio entre las columnas */
+    }
+
+    #cargar_form label {
+        text-align: right;
+        /* Alineación del texto a la derecha */
+    }
+</style>
+
+{% endblock %}

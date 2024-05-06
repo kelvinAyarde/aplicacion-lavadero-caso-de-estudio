@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% if session %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/contenedor_estilos.css') }}">
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="sidebar open">
+        <div class="logo-details">
+            <div class="logo_name">logo_nombre</div>
+            <i class="bx bx-menu-alt-right" id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            {% if session['id_rol'] == 1 %}
+            <!----- rol de Admin -->
+            <li>
+                <a href="/cliente">
+                    <i></i>
+                    <span class="links_name">Cliente</span>
+                </a>
+            </li>
+            <li>
+                <a href="/venta">
+                    <i></i>
+                    <span class="links_name">Venta</span>
+                </a>
+            </li>
+            {% elif session['id_rol'] == 2 %}
+            <!----- rol de encargado-->
+            <li>
+                <a href="/#">
+                    <i></i>
+                    <span class="links_name">mod1</span>
+                </a>
+            </li>
+            {% elif session['id_rol'] == 3 %}
+            <!----- rol de Operarior-->
+            <li>
+                <a href="#">
+                    <i></i>
+                    <span class="links_name">mod1</span>
+                </a>
+            </li>
+            {% endif %}
+
+            <!--- -->
+            <li class="profile">
+                <h4 class="detalles" id="nombreUsu">nombre: {{session['nombre_1']+' '+session['nombre_2'] }} </h4>
+                <h4 class="detalles" id="cargoUsu">apellido: {{ session['apellido_1']+' '+session['apellido_2'] }}</h4>
+                <h4 class="detalles" id="cargoUsu">cargo: {{session['rol']}}</h4>
+                <a href="/cerrar_sesion" style="color: white; background-color: #e91e63;" id="btn_cierre_Session">
+                    <i class="bx bx-log-out" style="color: white"></i>
+                    <span class="links_name">Cerrar Sesión</span>
+                </a>
+
+            </li>
+            <!--- -->
+        </ul>
+    </div>
+
+    <div class="home-section">
+        <div class="contenedor-principal" id="cont-p">
+            {% if session['rol'] is not none %}
+            {% block contenido %}
+            <!-- Contenido de cada página se insertará aquí -->
+            {% endblock %}
+            {% else %}
+            <h1 style="text-align: center;">No tiene acceso!!</h1>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        if ("{{ mensaje }}") {
+            setTimeout(function () { alert('{{ mensaje }}'); }, 100); //tiene setTimeout para que se pueda cargar la pagina
+        }
+    </script>
+    <script src="{{ url_for('static', filename='js/script_base.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ayuda_busquedas.js') }}"></script>
+</body>
+
+</html>
+{% else %}
+
+<h1>NO SE LOGEO</h1>
+{% endif %}

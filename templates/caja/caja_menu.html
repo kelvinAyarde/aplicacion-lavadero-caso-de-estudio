@@ -1,0 +1,23 @@
+{% extends 'inicio/base.html' %}
+
+{% block contenido %}
+<section class="contenedor_modulo">
+    {% if session['id_rol'] == 1 %}
+    <nav>
+        <ul class="navbar_inter">
+            <li class="nav_inter-item"><a href="/caja/apertura_cierre">apertura/cierre</a></li>
+        </ul>
+        <ul class="navbar_inter">
+            <li class="nav_inter-item"><a href="/caja/pago_venta">pago_venta</a></li>
+        </ul>
+    </nav>
+    <div class="contenedor_modulo_interno">
+        {% block contenido_2 %}
+        <!-- Contenido de cada página se insertará aquí -->
+        {% endblock %}
+    </div>
+    {% else %}
+    <h1>No tiene acceso!!</h1>
+    {% endif %}
+</section>
+{% endblock %}
